@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Turbine Power Prediction</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #0b1120;
+            color: #f8fafc;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        /* MAIN CARD */
+
+        .container {
+            width: 100%;
+            max-width: 620px;
+
+            background: #111827;
+
+            border: 1px solid #1f2937;
+            border-radius: 18px;
+
+            padding: 32px 38px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.45);
+        }
+
+
+        /* HEADER */
+
+        .header {
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        label {
+            display: block;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #cbd5e1;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* DATE + TIME */
+
+        input[type="date"],
+        input[type="time"] {
+
+            width: 100%;
+            height: 48px;
+
+            padding: 0 14px;
+
+            background: #0f172a;
+
+            color: #ffffff;
+
+            border: 1px solid #334155;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+            outline: none;
+        }
+
+
+        /* INPUT FOCUS */
+
+        input[type="date"]:focus,
+        input[type="time"]:focus {
+
+            border-color: #3b82f6;
+
+            box-shadow:
+                0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+
+        /* ⭐ MAKE CALENDAR + CLOCK ICON WHITE */
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+
+            cursor: pointer;
+
+            opacity: 1;
+
+            filter: invert(1);
+
+            width: 20px;
+            height: 20px;
+        }
+
+
+        /* BUTTON */
+
+        button {
+
+            width: 100%;
+            height: 48px;
+
+            margin-top: 4px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+
+        button:hover {
+
+            background: #3b82f6;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+
+        button:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* RESULT */
+
+        .result {
+
+            margin-top: 24px;
+
+            background: #0f1f38;
+
+            border: 1px solid #1d4ed8;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+
+        .result-title {
+
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .result-value {
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            color: #60a5fa;
+        }
+
+
+        .unit {
+
+            font-size: 14px;
+
+            color: #94a3b8;
+
+            margin-left: 4px;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .container {
+
+                padding: 25px 22px;
+            }
+
+            .header h1 {
+
+                font-size: 26px;
+            }
+
+            .result-value {
+
+                font-size: 24px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>⚡ Turbine Power Prediction</h1>
+
+            <p>
+                AI-powered active power forecasting
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+
+            <!-- DATE -->
+
+            <div class="form-group">
+
+                <label for="date">
+                    Select Date
+                </label>
+
+                <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                >
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="form-group">
+
+                <label for="time">
+                    Select Time
+                </label>
+
+                <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    required
+                >
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button type="submit">
+
+                Predict Active Power
+
+            </button>
+
+
+        </form>
+
+
+        <!-- RESULT -->
+
+        {% if prediction is not none %}
+
+        <div class="result">
+
+            <div class="result-title">
+
+                Predicted Active Power
+
+            </div>
+
+
+            <div class="result-value">
+
+                {{ prediction }}
+
+                <span class="unit">
+                    kW
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            XGBoost Machine Learning Model
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
